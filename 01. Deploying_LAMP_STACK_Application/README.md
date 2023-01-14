@@ -102,14 +102,11 @@ Again, use the ‘apt’ package manager to acquire and install MySQL;
   $ sudo apt install mysql-server
 ```
   
-You shown get the request as shown in the image below and confirm 'Y' to proceed with installation
+You should get the request as shown in the image below and confirm 'Y' to proceed with installation
 
 ![Image-7](https://user-images.githubusercontent.com/57641192/212471434-94be6df8-fab2-4cb1-864d-29e7b6dfb160.png)
 
 Use the ```bash sudo mysql_secure_installation``` command to remove insecure default settings and enable protection for the database.
-  
-
-
 
 
 
