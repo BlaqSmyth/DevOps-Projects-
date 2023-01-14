@@ -1,7 +1,7 @@
 # Deploying a LAMP STACK Web Application on AWS Cloud 
 ____
 A LAMP stack is a bundle of four different software technologies that developers use to build websites and web applications. LAMP is an acronym for the operating system, Linux; the web server, Apache; the database server, MySQL; and the programming language, PHP. All four of these technologies are open source, which means they are community maintained and freely available for anyone to use. Developers use LAMP stacks to create, host, and maintain web content. It is a popular solution that powers many of the websites you commonly use today.
-## Step 0 Creating Virtual Machine(EC2 Instance)
+## Step-0 Creating Virtual Machine(EC2 Instance)
 In order to complete this project you will need an AWS account and a virtual server with Ubuntu Server OS. AWS is the biggest Cloud Service Provider and it offers a free tier account that we are going to leverage for our projects.
 
 You can watch the two videos below to set-up and connect to your EC2 instance on AWS;
@@ -20,7 +20,7 @@ There are different methods for connecting to EC2 Instance depending on your mac
 *__IMPORTANT__* – save your private key (.pem file) securely and do not share it with anyone! If you lose it, you will not be able to connect to your server ever again!
 
 <details open>
-<summary>Using the terminal on MAC/Linux</summary>
+  <summary> <b>Using the terminal on MAC/Linux</b> </summary>
 <br>
 
 * The terminal is already installed by default. You just need to open it up.
@@ -41,4 +41,9 @@ There are different methods for connecting to EC2 Instance depending on your mac
   
 *__IMPORTANT__* - Anywhere you see these anchor tags < > , going forward, it means you will need to replace the content in there with values specific to your situation. For example, If the private key you downloaded was named my-private-key.pem simply remove the anchor tags and insert my-private-key.pem in the command you are required to execute.
 Congratulations! We've have successfully created our first Linux Server in the Cloud and our set up looks like this now;
-[Screenshot](
+![Screenshot](https://user-images.githubusercontent.com/57641192/212467119-4afdc115-52b1-413e-bbd6-649ebbcac346.png)
+
+## Step-1 Setting-Up Apache Web Server & Updating The Firewall
+The Apache web server is among the most popular web servers in the world. It’s well documented, has an active community of users, and has been in wide use for much of the history of the web, which makes it a great default choice for hosting a website.
+  
+To deploy the web application, we need to install Apache using Ubuntu's package manager [*__'apt'__*](https://en.wikipedia.org/wiki/APT_(software))
