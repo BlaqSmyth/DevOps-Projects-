@@ -93,7 +93,7 @@ If you see following page, then your web server is now correctly installed and a
   
 ![Image-5](https://user-images.githubusercontent.com/57641192/212470894-7a249cdf-1908-4e01-bcf5-0405ed12a983.png)
   
-Step 2 - Installing MySQL
+## Step 2 - Installing MySQL
   
 MySQL is a popular relational database management system used within PHP environments, so we will use it in our project.
   
@@ -106,7 +106,91 @@ You should get the request as shown in the image below and confirm 'Y' to procee
 
 ![Image-7](https://user-images.githubusercontent.com/57641192/212471434-94be6df8-fab2-4cb1-864d-29e7b6dfb160.png)
 
-Use the ```bash sudo mysql_secure_installation``` command to remove insecure default settings and enable protection for the database.
+Use the ``` sudo mysql_secure_installation``` command to remove insecure default settings and enable protection for the database.
 
+![Image-9](https://user-images.githubusercontent.com/57641192/212502009-c5cd9f74-9d91-45ca-b80b-28ec4de7880d.png)
+  
+When the installation is finished, log in to the MySQL console with the command below;
+``` $ sudo mysql ```
+  
+![Image-9](https://user-images.githubusercontent.com/57641192/212502140-3a3a282f-5013-4bb8-bc60-157835e9b412.png)
+  
+If you get the imaga above then you've successfully logged into the MySQL console. Then exit the MySQL shell using the following command ``` exit ```
+  
+*__Note__*: For increased security, it’s best to have dedicated user accounts with less expansive privileges set up for every database, especially if you plan on having multiple databases hosted on your server.
+  
+## Step 3 - Installing PHP and Its Modules 
+PHP serves as a programming language which is useful for dynamically displaying contents of the webpage to users who make requests to the webserver.
 
+We need to install php alongside its modules, ```php-mysql``` which is a php module that allows php to communicate with the mysql database and ```libapache2-mod-php``` which ensures that the apache web server handles the php contents properly.
 
+To install these 3 packages at once, run:
+
+```$ sudo apt install php libapache2-mod-php php-mysql```
+  
+Once the installation is complete, you can run the following command to confirm your PHP version:
+```php -v```
+And you should get a display just like the images below;
+  
+![Image-10](https://user-images.githubusercontent.com/57641192/212502571-151906e2-52d6-40d7-abe6-9f02ed664895.png)
+  
+At this point, our LAMP stack is completely installed and fully operational.
+
+* Linux (Ubuntu)
+* Apache HTTP Server
+* MySQL
+* PHP
+  
+The next step is to set-up Apache Virtual Host to hold our website files and folders. 
+  
+## Step 4 - Creating A Virtual Host For Our Website Using Apache 
+  
+Next we set up a virtual host using apache to enable us deploy our webcontent on the webserver. Apache's virtualhosting ensures that one or more websites can run on a webserver via different IP addresses.
+
+![Image-11](https://user-images.githubusercontent.com/57641192/212503097-3958418e-9576-4073-9805-81c4254e4195.png)
+
+Apache webserver serves a website by the way of server blocks inside its **/var/www/** directory, and it can support multiple of this server blocks to host other websites.
+
+Here we create a new directory called **projectlampstack** inside the **/var/www/** directory.
+
+```sudo mkdir /var/www/projectlampstack```
+
+Then we change permissions of the **projectlampstack** directory to the current user system
+
+```sudo chown -R $USER:$USER /var/www/projectlampstack```
+  
+The **projectlampstack** directory represents the directory which will contains files related to our website as it represents a new server block on the apache webserver. In order to spin up this server block we need to configure it by creating a **.conf file.**
+
+```sudo vi /etc/apache2/sites-available/projectlampstack.conf```
+
+The following represents the configuration needed to spin up the server block. Copy and paste into the editor:
+  
+```<VirtualHost *:80>
+    ServerName projectlamp
+    ServerAlias www.projectlamp 
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/projectlamp
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+  
+Run ```esc :wq```  to save and terminate vi editor.
+
+Run ```sudo a2ensite projectlampstack``` to activate the server block.
+
+Run ```sudo a2dissite 000-default``` to deactivate the default webserver block that comes with apache on default.
+
+Reload the apache2 server the command ```sudo systemctl reload apache2```
+  
+Our new website is now active, but the web root **/var/www/projectlamp** is still empty. Create an **index.html** file in that location so that we can test that the virtual host works as expected. Input the block of code below in the **index.html** file:
+  
+```sudo echo 'Hello LAMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectlamp/index.html```
+  
+Now let's try to access our website from the internet using our Public IP Address:
+  
+```http://<Public-IP-Address>:80```
+  
+If you get this image below, then your Apache virtual host is working as expected.
+  
+![Image-12](https://user-images.githubusercontent.com/57641192/212504126-5544ae19-49aa-46fa-a8fa-96b7a4997e5a.png)
