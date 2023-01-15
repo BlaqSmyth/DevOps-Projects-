@@ -194,3 +194,9 @@ Now let's try to access our website from the internet using our Public IP Addres
 If you get this image below, then your Apache virtual host is working as expected.
   
 ![Image-12](https://user-images.githubusercontent.com/57641192/212504126-5544ae19-49aa-46fa-a8fa-96b7a4997e5a.png)
+
+## Enable PHP On The Website 
+With the default **DirectoryIndex8** settings on Apache, a file named **index.html** will always take precedence over an **index.php** file. This is useful for setting up maintenance pages in PHP applications, by creating a temporary **index.html** file containing an informative message to visitors. 
+
+To serve an **index.php** containing the server-side code, you’ll need to edit the **/etc/apache2/mods-enabled/dir.conf** file and change the order in which the **index.php** file is listed within the **DirectoryIndex**
+
