@@ -202,7 +202,8 @@ To serve an **index.php** containing the server-side code, you’ll need to edit
   
 ```sudo vim /etc/apache2/mods-enabled/dir.conf```
   
-```<IfModule mod_dir.c>
+```
+<IfModule mod_dir.c>
         #Change this:
         #DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm
         #To this:
@@ -221,8 +222,10 @@ Create a new file named index.php inside your custom web root folder:
   
 This will open a blank file with vim editor. Add the following text, which is valid PHP code, inside the file:
 
-```<?php
-phpinfo();```
+```
+<?php
+phpinfo();
+```
  
 Now, save and close the file, refresh the our web page and we'll get the image below:
 
