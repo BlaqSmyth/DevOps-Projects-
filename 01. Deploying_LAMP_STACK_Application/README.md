@@ -195,8 +195,35 @@ If you get this image below, then your Apache virtual host is working as expecte
   
 ![Image-12](https://user-images.githubusercontent.com/57641192/212504126-5544ae19-49aa-46fa-a8fa-96b7a4997e5a.png)
 
-## Enable PHP On The Website 
+## Step 5 - Enable PHP On The Website 
 With the default **DirectoryIndex8** settings on Apache, a file named **index.html** will always take precedence over an **index.php** file. This is useful for setting up maintenance pages in PHP applications, by creating a temporary **index.html** file containing an informative message to visitors. 
 
-To serve an **index.php** containing the server-side code, you’ll need to edit the **/etc/apache2/mods-enabled/dir.conf** file and change the order in which the **index.php** file is listed within the **DirectoryIndex**
+To serve an **index.php** containing the server-side code, you’ll need to edit the **/etc/apache2/mods-enabled/dir.conf** file and change the order in which the **index.php** file is listed within the **DirectoryIndex** with the following command and code below:
+  
+```sudo vim /etc/apache2/mods-enabled/dir.conf```
+  
+```<IfModule mod_dir.c>
+        #Change this:
+        #DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm
+        #To this:
+        DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
+</IfModule>
+```
+After saving and closing the file, you will need to reload Apache so the changes take effect:
 
+```sudo systemctl reload apache2```
+
+Finally, we will create a PHP script to test that PHP is correctly installed and configured on your server.
+  
+Create a new file named index.php inside your custom web root folder:
+
+```vim /var/www/projectlamp/index.php```
+  
+This will open a blank file with vim editor. Add the following text, which is valid PHP code, inside the file:
+
+```<?php
+phpinfo();```
+ 
+Now, save and close the file, refresh the our web page and we'll get the image below:
+
+![Image-13](https://user-images.githubusercontent.com/57641192/212751272-0a8c28e0-97e5-48bf-b1d4-dd0c8d48ca22.png)
